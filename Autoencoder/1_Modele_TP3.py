@@ -128,7 +128,7 @@ start_time = time.perf_counter()
 autoencoder = model.fit(x_train, x_train,
                         epochs=fit_epochs,  # nombre d'epochs
                         batch_size=fit_batch_size,  # nombre d'images entrainées ensemble
-                        verbose=1,  # mets cette valeur à 0, si vous voulez ne pas afficher les détails d'entrainement
+                        verbose=1,  
                         callbacks=[modelcheckpoint],
                         # les fonctions à appeler à la fin de chaque epoch (dans ce cas modelcheckpoint: qui sauvegarde le modèle)
                         shuffle=False,  # On ne boulverse pas les données

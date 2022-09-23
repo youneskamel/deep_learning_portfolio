@@ -95,9 +95,7 @@ plt.show()
 # Défintion du modèle
 autoencoder.summary()
 input_layer_index = 0  # l'indice de la première couche de l'encodeur (input)
-output_layer_index = 8  # l'indice de la dernière couche (la sortie) de l'encodeur (dépend de votre architecture)
-# note: Pour identifier l'indice de la dernière couche de la partie encodeur, vous pouvez utiliser la fonction "model.summary()"
-# chaque ligne dans le tableau affiché par "model.summary" est compté comme une couche
+output_layer_index = 8  # l'indice de la dernière couche (la sortie) de l'encodeur 
 encoder = Model(autoencoder.layers[input_layer_index].input, autoencoder.layers[output_layer_index].output)
 
 encoded = encoder.predict(x)
@@ -121,7 +119,7 @@ x_train, x_test = split_ratio(x, 0.8)
 labels_train, labels_test = split_ratio(labels, 0.8)
 
 model = svm.SVC(kernel='linear', probability=True,
-                C=1)  # Utiliser probability=true permet l'utilisation de la cross-validation
+                C=1)  
 model.fit(x_train, labels_train)
 pred = model.predict(x_test)
 print(f"Accuracy of SVM Linear on original images {accuracy_score(pred, labels_test)}")
@@ -130,7 +128,7 @@ print(f"Accuracy of SVM Linear on original images {accuracy_score(pred, labels_t
 encoded_train, encoded_test = split_ratio(encoded, 0.8)
 
 model = svm.SVC(kernel='linear', probability=True,
-                C=1)  # Utiliser probability=true permet l'utilisation de la cross-validation
+                C=1)  
 model.fit(encoded_train, labels_train)
 pred = model.predict(encoded_test)
 print(f"Accuracy of SVM Linear on encodings {accuracy_score(pred, labels_test)}")
