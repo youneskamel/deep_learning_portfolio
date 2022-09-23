@@ -1,20 +1,3 @@
-# **************************************************************************
-# INF7370 Apprentissage automatique – Hiver 2022
-# Travail pratique 3
-# ===========================================================================
-
-# ===========================================================================
-# Dans ce script, on évalue l'autoencodeur entrainé dans 1_Modele.py sur les données tests.
-# On charge le modèle en mémoire puis on charge les images tests en mémoire
-# 1) On évalue la qualité des images reconstruites par l'autoencodeur
-# 2) On évalue avec une tache de classification la qualité de l'embedding
-# 3) On visualise l'embedding en 2 dimensions avec un scatter plot
-
-
-# ==========================================
-# ======CHARGEMENT DES LIBRAIRIES===========
-# ==========================================
-
 # La libraire responsable du chargement des données dans la mémoire
 from keras.layers import Flatten
 from keras.preprocessing.image import ImageDataGenerator
@@ -40,38 +23,15 @@ from sklearn.preprocessing import StandardScaler
 from keras import backend as K
 from sklearn.manifold import TSNE
 
-# ==========================================
-# ===============GPU SETUP==================
-# ==========================================
-
 # Configuration des GPUs et CPUs
 config = tf.compat.v1.ConfigProto(device_count={'GPU': 1, 'CPU': 16})
 sess = tf.compat.v1.Session(config=config)
 tf.compat.v1.keras.backend.set_session(sess)
 
-# ==========================================
-# ==================MODÈLE==================
-# ==========================================
 
 # Chargement du modéle (autoencodeur) sauvegardé dans la section 1 via 1_Modele.py
 model_path = "Model.hdf5"
 autoencoder = load_model(model_path)
-
-# ==========================================
-# ================VARIABLES=================
-# ==========================================
-
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#                       QUESTIONS
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-# 1) A ajuster les variables suivantes selon votre problème:
-# - mainDataPath
-# - number_images
-# - number_images_class_x
-# - image_scale
-# - images_color_mode
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
 
 # L'emplacement des images
 mainDataPath = "vache_elephant/"
@@ -103,10 +63,6 @@ images_color_mode = "rgb"  # grayscale ou rgb
 # Le nombre de canaux de couleurs
 image_channels = 3
 
-# ==========================================
-# =========CHARGEMENT DES IMAGES============
-# ==========================================
-
 # Chargement des images test
 data_generator = ImageDataGenerator(rescale=1. / 255)
 
@@ -119,18 +75,6 @@ generator = data_generator.flow_from_directory(
     shuffle=False)  # pas besoin de bouleverser les images
 
 x = generator.next()
-
-# ***********************************************
-#                  QUESTIONS
-# ***********************************************
-#
-# 2) Reconstruire les images tests en utilisant l'autoencodeur entrainé dans la première étape.
-# Pour chacune des classes: Afficher une image originale ainsi que sa reconstruction.
-# Afficher le titre de chaque classe au-dessus de l'image
-# Note: Les images sont normalisées (entre 0 et 1), alors il faut les multiplier
-# par 255 pour récupérer les couleurs des pixels
-#
-# ***********************************************
 
 decoded = autoencoder.predict(x)
 
@@ -148,17 +92,6 @@ for i, j, label in ((2, 1, 'Éléphant'), (200, 2, 'Vache')):
     ax.get_yaxis().set_visible(False)
 plt.show()
 
-# ***********************************************
-#                  QUESTIONS
-# ***********************************************
-#
-# 3) Définire un modèle "encoder" qui est formé de la partie encodeur de l'autoencodeur
-# Appliquer ce modèle sur les images afin de récupérer l'embedding
-# Note: Il est "nécessaire" d'appliquer la fonction (flatten) sur l'embedding
-# afin de réduire la représentation de chaque image en un seul vecteur
-#
-# ***********************************************
-
 # Défintion du modèle
 autoencoder.summary()
 input_layer_index = 0  # l'indice de la première couche de l'encodeur (input)
@@ -175,27 +108,8 @@ image_shape = (image_scale, image_scale,
 encoded = Flatten(input_shape=image_shape)(encoded)
 x = Flatten(input_shape=image_shape)(x)
 
-# ***********************************************
-#                  QUESTIONS
-# ***********************************************
-#
-# 4) Normaliser le flattened embedding (les vecteurs recupérés dans question 3)
-# en utilisant le StandardScaler
-# ***********************************************
-
 scaler = StandardScaler()
 encoded = scaler.fit_transform(encoded)
-
-
-# ***********************************************
-#                  QUESTIONS
-# ***********************************************
-#
-# 5) Appliquer un SVM Linéaire sur les images originales (avant l'encodage par le modèle)
-# Entrainer le modèle avec le cross-validation
-# Afficher la métrique suivante :
-#    - Accuracy
-# ***********************************************
 
 def split_ratio(list_to_split, ratio):
     elements = len(list_to_split)
@@ -212,15 +126,7 @@ model.fit(x_train, labels_train)
 pred = model.predict(x_test)
 print(f"Accuracy of SVM Linear on original images {accuracy_score(pred, labels_test)}")
 
-# ***********************************************
-#                  QUESTIONS
-# ***********************************************
-#
-# 6) Appliquer un SVC Linéaire sur le flattened embedding normalisé
-# Entrainer le modèle avec le cross-validation
-# Afficher la métrique suivante :
-#    - Accuracy
-# ***********************************************
+
 encoded_train, encoded_test = split_ratio(encoded, 0.8)
 
 model = svm.SVC(kernel='linear', probability=True,
@@ -229,13 +135,7 @@ model.fit(encoded_train, labels_train)
 pred = model.predict(encoded_test)
 print(f"Accuracy of SVM Linear on encodings {accuracy_score(pred, labels_test)}")
 
-# ***********************************************
-#                  QUESTIONS
-# ***********************************************
-#
-# 7) Appliquer TSNE sur le flattened embedding afin de réduire sa dimensionnalité en 2 dimensions
-# Puis afficher les 2D features dans un scatter plot en utilisant 2 couleurs(une couleur par classe)
-# ***********************************************
+
 plt.clf()
 tsne_proj = TSNE(n_components=2).fit_transform(encoded)
 fig, ax = plt.subplots(figsize=(8,8))
