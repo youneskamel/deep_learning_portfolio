@@ -17,6 +17,6 @@ Wang et al. suggest splitting the last layer of the network in order to have two
 
 In order to implement this solution, preprocessign of the atari game frames were necessary. Since, this type of preprocessing is specific to atari games and does not impact my understanding of deep Q learning, I decided not to invest a lot of time in that step. My preprocessing file `utils.py` thus draws heavily from Phil Tabor's solution from his Deep Q Learning course. The stucture of the classes and functions of this repository are also inspired by Phil Tabor's solution for regular deep Q learning, as I thought that organization was the most readable and understandable. The implementation of the ideas in the research paper, however, are my solutions.
 
-## Implementation of a convolutional autoencoder 
+## Implementation of a convolutional autoencoder :elephant:
 
 Description coming soon.
