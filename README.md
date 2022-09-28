@@ -1,5 +1,5 @@
 # My Deep Learning portfolio 🧠
-This is my deep learning portfolio. I will here share my various projects using deep neural networks, like research paper implementations.
+This is my deep learning portfolio. I will here share my various projects using deep neural networks, like research paper implementations. You will find below the descriptions of the various projects I worked on.
 
 ## Implementation of [Hasselt et al. (2015)](https://arxiv.org/abs/1509.06461) : Double Deep Q Learning on the atari library with PyTorch :space_invader: 
 
