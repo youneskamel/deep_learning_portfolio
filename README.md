@@ -1,7 +1,7 @@
 # My Deep Learning portfolio 🧠
 This is my deep learning portfolio. I will here share my various projects using deep neural networks, like research paper implementations.
 
-## Implementation of [Hasselt et al. (2015)](https://arxiv.org/abs/1509.06461) : Double Deep Q Learning on the atari library 
+:space_invader: ## Implementation of [Hasselt et al. (2015)](https://arxiv.org/abs/1509.06461) : Double Deep Q Learning on the atari library 
 
 In this projet, the goal was to reproduce the solution offered by Hasselt et al. That solution improves on regular deep Q-learning by tackling one of its main weaknesses. Under regular deep Q learning, Q values are sometimes overestimated because of the way we compute the target values using the max fucntion. The noise and random variation contained in estimated Q values means that some of them will be overestimated, and some of them underestimated. The fact that we use the max function on the Q values to choose the appropriate tagret value means that overestimates will tend be chosen more often, leading to a Q value function that is biased towards larger estimates.
 
