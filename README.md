@@ -11,7 +11,7 @@ In order to implement this solution, preprocessing the atari game frames was nec
 
 ## Implementation of [Wang et al. (2015)](https://arxiv.org/abs/1511.06581) : Dueling Double Deep Q Learning on the Atari library with PyTorch ⚔️
 
-Here, the goal was to improve once more on the solution described above. Wang et al. suggest a new network architecture, splitting the output layer in two. The Q function that we try to estimate in Q-learning, in the action-state value. Given a certain state and a certain action, the Q-function will return the value of their combination, namely, using the given action in the given state. This Q function is thus the sum of the action function, A, and the state value function, V (Q = A + V). 
+Here, the goal was to improve once more on the solution described above. Wang et al. suggest a new network architecture, splitting the output layer in two. The Q function that we try to estimate in Q-learning is the action-state value. Given a certain state and a certain action, the Q-function will return the value of their combination, namely, using the given action in the given state. This Q function is thus the sum of the action function, A, and the state value function, V (Q = A + V). 
  
 Wang et al. suggest splitting the last layer of the network in order to have two output layers, one that estimates A and the other V. This allowed for better performance because the dueling architecture can learn which states are valuable, without having to learn the effect of each action for each state. This enables the network to identify states where its actions do not significantly impact the environment.
  
