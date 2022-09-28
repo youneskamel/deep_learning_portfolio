@@ -9,7 +9,7 @@ The solution proposed by the authors is to change the way target values are comp
 
 In order to implement this solution, preprocessign of the atari game frames were necessary. Since, this type of preprocessing is specific to atari games and does not impact my understanding of deep Q learning, I decided not to invest a lot of time in that step. My preprocessing file `utils.py` thus draws heavily from Phil Tabor's solution from his Deep Q Learning course. The stucture of the classes and functions of this repository are also inspired by Phil Tabor's solution for regular deep Q learning, as I thought that organization was the most readable and understandable. The implementation of the ideas in the research paper, however, are my solutions.
 
-## Implementation of [Wang et al (2015)](https://arxiv.org/abs/1511.06581) : Dueling Double Deep Q Learning on the atari library
+## Implementation of [Wang et al (2015)](https://arxiv.org/abs/1511.06581) : Dueling Double Deep Q Learning on the atari library ⚔️
 
 Here, the goal was to improve once more on the solution described above. Wang et al. suggest a new netwrok architecture, splitting the output layer in two. The Q function that we try tp estimate in Q-learning, in the action-sate value. Given a certain state and a certain action, the Q-function will return the value of their combination, namely, using the given action in the given state. This Q function is thus the sum of the action function, A, and the state value function, V (Q = A + V). 
 
